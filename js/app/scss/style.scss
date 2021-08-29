@@ -1,0 +1,188 @@
+$cellwidth: 100px;
+$backgroundColor: rgb(4, 4, 65);
+$cellbackground: rgb(4, 4, 65);
+$hovercolor: rgba(255, 255, 255, 0.4);
+$winmodal : rgba(10, 10, 10, 0.7);
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: $backgroundColor;
+}
+
+// Grid Display
+.grid {
+  display: grid;
+
+  &-jc-sa {
+    justify-content: center;
+  }
+
+  &-ai-c {
+    align-content: center;
+  }
+}
+
+// Game
+
+.game {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.win{
+    &>.winner{
+      display:flex;
+    }
+  }
+}
+
+.winner{
+  position:absolute;
+  height:100vh;
+  width:100vw;
+  background-color: $winmodal;
+
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &>h1{
+    color:white;
+    font-size: 3rem;
+  }
+  &>button{
+    height:50px;
+    width:150px;
+    border:0px;
+    border-radius:50px;
+    font-size:1.2rem;
+  }
+}
+
+
+.container {
+  width: 3 * $cellwidth;
+  height: 3 * $cellwidth;
+  grid-template-columns: repeat(3, 1fr);
+
+    > .x_hover {
+      &:hover {
+        &::before {
+          content: "";
+          height: 0.1 * $cellwidth;
+          width: 0.8 * $cellwidth;
+          background-color: $hovercolor;
+          border-radius: 10px;
+
+          position: absolute;
+          top: 0.4 * $cellwidth;
+          left: 0.1 * $cellwidth;
+          transform: rotate(45deg);
+        }
+        &::after {
+          content: "";
+          height: 0.1 * $cellwidth;
+          width: 0.8 * $cellwidth;
+          background-color: $hovercolor;
+          border-radius: 10px;
+
+          position: absolute;
+          top: 0.4 * $cellwidth;
+          left: 0.1 * $cellwidth;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+}
+
+.cell {
+  width: $cellwidth;
+  height: $cellwidth;
+  border: 1px solid white;
+  position: relative;
+  cursor: pointer;
+
+  // Hover Effect
+
+  // Border Issues
+  &:nth-child(3n + 1) {
+    border-left: none;
+  }
+  &:nth-child(3n) {
+    border-right: none;
+  }
+  &:first-child,
+  &:nth-child(2),
+  &:nth-child(3) {
+    border-top: none;
+  }
+  &:last-child,
+  &:nth-child(8),
+  &:nth-child(7) {
+    border-bottom: none;
+  }
+}
+
+// X
+.x {
+  &::before {
+    content: "";
+    height: 0.1 * $cellwidth;
+    width: 0.8 * $cellwidth;
+    background-color: white;
+    border-radius: 10px;
+
+    position: absolute;
+    top: 0.4 * $cellwidth;
+    left: 0.1 * $cellwidth;
+    transform: rotate(45deg);
+  }
+  &::after {
+    content: "";
+    height: 0.1 * $cellwidth;
+    width: 0.8 * $cellwidth;
+    background-color: white;
+    border-radius: 10px;
+
+    position: absolute;
+    top: 0.4 * $cellwidth;
+    left: 0.1 * $cellwidth;
+    transform: rotate(-45deg);
+  }
+}
+
+// O
+.o {
+  &::before {
+    content: "";
+    height: 0.7 * $cellwidth;
+    width: 0.7 * $cellwidth;
+    border-radius: 50%;
+    background-color: white;
+
+    position: absolute;
+    top: 0.15 * $cellwidth;
+    left: 0.15 * $cellwidth;
+  }
+  &::after {
+    content: "";
+    height: 0.5 * $cellwidth;
+    width: 0.5 * $cellwidth;
+    border-radius: 50%;
+    background-color: $cellbackground;
+
+    position: absolute;
+    top: 0.25 * $cellwidth;
+    left: 0.25 * $cellwidth;
+  }
+}
